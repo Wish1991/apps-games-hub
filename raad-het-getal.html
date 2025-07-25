@@ -3,48 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raad het getal!</title>
+    <title>Raad het Getal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f7fa;
-            padding: 20px;
+            background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            max-width: 430px;
+            margin: 42px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 22px;
+            box-shadow: 0 6px 32px rgba(40,80,120,0.11);
+            padding: 42px 28px 34px 28px;
             text-align: center;
         }
+        .game-icon {
+            font-size: 2.7rem;
+            color: #309be6;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #2567b3;
+            margin-bottom: 10px;
+        }
+        .uitleg {
+            color: #467;
+            font-size: 1.13rem;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
         input[type="number"] {
-            padding: 10px;
+            padding: 11px;
             font-size: 16px;
-            width: 200px;
-            margin: 10px;
+            width: 175px;
+            margin: 14px 6px 14px 6px;
+            border: 1.5px solid #bdd5ee;
+            border-radius: 8px;
+            outline: none;
+            transition: border .15s;
+        }
+        input[type="number"]:focus {
+            border-color: #309be6;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 11px 22px;
+            font-size: 1.04rem;
             cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background: #2567b3;
+            color: #fff;
+            margin: 7px 4px;
+            transition: background .13s;
+        }
+        button:disabled {
+            background: #b8d1ee;
+            cursor: default;
+        }
+        button:hover:enabled {
+            background: #309be6;
         }
         #bericht {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
+            margin-top: 18px;
+            font-size: 1.09rem;
+            font-weight: 500;
+            min-height: 22px;
         }
         .terug {
             display: block;
-            margin: 35px auto 0 auto;
+            margin: 38px auto 0 auto;
             text-decoration: none;
             color: #247;
+            font-size: 1.09rem;
+            transition: color .14s;
+        }
+        .terug:hover {
+            color: #309be6;
+        }
+        @media (max-width: 580px) {
+            .wrapper { padding: 24px 6vw; }
         }
     </style>
 </head>
 <body>
-    <h1>Raad het Getal!</h1>
-    <p>Ik denk aan een getal tussen 1 en 100. Kan jij het raden?</p>
-    <input type="number" id="gok" placeholder="Jouw gok" min="1" max="100">
-    <br>
-    <button id="controleerBtn" onclick="checkGok()">Controleer!</button>
-    <button id="opnieuwBtn" onclick="resetSpel()" style="display:none;">Opnieuw spelen</button>
-    <div id="bericht"></div>
-
-    <a href="index.html" class="terug">&larr; Terug naar het menu</a>
+    <div class="wrapper">
+        <div class="game-icon"><i class="fas fa-question-circle"></i></div>
+        <h1>Raad het Getal</h1>
+        <p class="uitleg">
+            Probeer het geheime getal tussen <b>1 en 100</b> te raden!<br>
+            Na elke poging krijg je een hint.<br>
+            Hoeveel pogingen heb jij nodig?
+        </p>
+        <input type="number" id="gok" placeholder="Jouw gok" min="1" max="100" autocomplete="off">
+        <br>
+        <button id="controleerBtn" onclick="checkGok()">Controleer!</button>
+        <button id="opnieuwBtn" onclick="resetSpel()" style="display:none;">Opnieuw spelen</button>
+        <div id="bericht"></div>
+        <a href="index.html" class="terug"><i class="fas fa-arrow-left"></i> Terug naar het menu</a>
+    </div>
 
     <script>
         let geheimGetal = Math.floor(Math.random() * 100) + 1;
@@ -58,7 +119,7 @@
             const bericht = document.getElementById('bericht');
             aantalPogingen++;
 
-            // Check op lege invoer of ongeldige waarde
+            // Ongeldige waarde
             if (!gokInput.value || gok < 1 || gok > 100) {
                 bericht.textContent = 'Vul een geldig getal in tussen 1 en 100!';
                 bericht.style.color = 'orange';
@@ -66,7 +127,7 @@
             }
 
             if (gok === geheimGetal) {
-                bericht.textContent = `Gefeliciteerd! Je hebt het getal geraden in ${aantalPogingen} poging(en)!`;
+                bericht.textContent = `🎉 Gefeliciteerd! Je hebt het getal geraden in ${aantalPogingen} poging(en)!`;
                 bericht.style.color = 'green';
                 spelActief = false;
                 document.getElementById('controleerBtn').style.display = 'none';
@@ -74,16 +135,16 @@
                 gokInput.disabled = true;
             } else if (gok > geheimGetal) {
                 bericht.textContent = 'Te hoog! Probeer opnieuw.';
-                bericht.style.color = 'red';
+                bericht.style.color = '#e35050';
             } else {
                 bericht.textContent = 'Te laag! Probeer opnieuw.';
-                bericht.style.color = 'red';
+                bericht.style.color = '#e35050';
             }
             gokInput.value = '';
             gokInput.focus();
         }
 
-        // Met enter raden
+        // Enter-toets = gokken
         document.getElementById('gok').addEventListener('keyup', function(e) {
             if (e.key === 'Enter') {
                 checkGok();
