@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang=\"nl\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Raad het getal!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        input[type=\"number\"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #bericht {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Raad het Getal!</h1>
+    <p>Ik denk aan een getal tussen 1 en 100. Kan jij het raden?</p>
+    <input type=\"number\" id=\"gok\" placeholder=\"Jouw gok...\">
+    <br>
+    <button onclick=\"checkGok()\">Controleer!</button>
+
+    <div id=\"bericht\"></div>
+
+    <script>
+        const geheimGetal = Math.floor(Math.random() * 100) + 1;
+        let aantalPogingen = 0;
+
+        function checkGok() {
+            const gok = Number(document.getElementById('gok').value);
+            const bericht = document.getElementById('bericht');
+
+            aantalPogingen++;
+
+            if (gok === geheimGetal) {
+                bericht.textContent = `Gefeliciteerd! Je hebt het getal geraden in ${aantalPogingen} poging(en)!`;
+                bericht.style.color = 'green';
+            } else if (gok > geheimGetal) {
+                bericht.textContent = 'Te hoog! Probeer opnieuw.';
+                bericht.style.color = 'red';
+            } else {
+                bericht.textContent = 'Te laag! Probeer opnieuw.';
+                bericht.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
