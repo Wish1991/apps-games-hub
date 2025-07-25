@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steen Papier Schaar</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7fafd; text-align: center; padding: 30px; }
+        h1 { margin-bottom: 24px; }
+        .btn { margin: 12px; padding: 15px 30px; font-size: 1.1rem; border: none; border-radius: 10px; cursor: pointer; background: #eceff6; transition: background .2s; }
+        .btn:hover { background: #d5e3f3; }
+        #resultaat { margin-top: 30px; font-size: 1.2rem; font-weight: bold; }
+        .terug { display: block; margin: 35px auto 0 auto; text-decoration: none; color: #247; }
+    </style>
+</head>
+<body>
+    <h1>Steen Papier Schaar</h1>
+    <div>
+        <button class="btn" onclick="speel('steen')">Steen</button>
+        <button class="btn" onclick="speel('papier')">Papier</button>
+        <button class="btn" onclick="speel('schaar')">Schaar</button>
+    </div>
+    <div id="resultaat"></div>
+    <a href="index.html" class="terug">&larr; Terug naar het menu</a>
+    <script>
+        function speel(jouwKeuze) {
+            const keuzes = ['steen', 'papier', 'schaar'];
+            const computerKeuze = keuzes[Math.floor(Math.random() * 3)];
+            let resultaat = '';
+            if (jouwKeuze === computerKeuze) {
+                resultaat = `Gelijkspel! Jullie kozen allebei <b>${jouwKeuze}</b>.`;
+            } else if (
+                (jouwKeuze === 'steen' && computerKeuze === 'schaar') ||
+                (jouwKeuze === 'papier' && computerKeuze === 'steen') ||
+                (jouwKeuze === 'schaar' && computerKeuze === 'papier')
+            ) {
+                resultaat = `Jij wint! Jij koos <b>${jouwKeuze}</b>, computer koos <b>${computerKeuze}</b>.`;
+            } else {
+                resultaat = `Je verliest! Jij koos <b>${jouwKeuze}</b>, computer koos <b>${computerKeuze}</b>.`;
+            }
+            document.getElementById('resultaat').innerHTML = resultaat;
+        }
+    </script>
+</body>
+</html>
