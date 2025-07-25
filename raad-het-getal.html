@@ -27,6 +27,12 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .terug {
+            display: block;
+            margin: 35px auto 0 auto;
+            text-decoration: none;
+            color: #247;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +43,8 @@
     <button id="controleerBtn" onclick="checkGok()">Controleer!</button>
     <button id="opnieuwBtn" onclick="resetSpel()" style="display:none;">Opnieuw spelen</button>
     <div id="bericht"></div>
+
+    <a href="index.html" class="terug">&larr; Terug naar het menu</a>
 
     <script>
         let geheimGetal = Math.floor(Math.random() * 100) + 1;
