@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%); font-family: 'Segoe UI', Arial, sans-serif; margin: 0;}
+        .wrapper { max-width: 430px; margin: 42px auto; background: rgba(255,255,255,0.97); border-radius: 22px; box-shadow: 0 6px 32px rgba(40,80,120,0.11); padding: 42px 28px 34px 28px; text-align: center; }
+        .game-icon { font-size: 2.7rem; color: #309be6; margin-bottom: 10px; }
+        h1 { font-size: 2.2rem; color: #2567b3; margin-bottom: 10px; }
+        .uitleg { color: #467; font-size: 1.13rem; margin-bottom: 26px; }
+        .vraag { font-weight: bold; margin-bottom: 15px; font-size: 1.13rem;}
+        .quiz-btn { display: block; width: 100%; margin: 7px 0; padding: 12px; font-size: 1.03rem; border: none; border-radius: 8px; background: #e3effc; color: #2567b3; cursor: pointer; transition: background .13s; }
+        .quiz-btn:hover { background: #309be6; color: #fff;}
+        #bericht { min-height: 22px; margin: 14px 0 0 0;}
+        .terug { display: block; margin: 38px auto 0 auto; text-decoration: none; color: #247; font-size: 1.09rem; }
+        .terug:hover { color: #309be6; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="game-icon"><i class="fas fa-question"></i></div>
+    <h1>Quiz</h1>
+    <div class="uitleg">Test je kennis! Kun jij alle vragen goed beantwoorden?</div>
+    <div id="quiz"></div>
+    <div id="bericht"></div>
+    <button onclick="resetQuiz()" id="opnieuwBtn" style="display:none;">Opnieuw spelen</button>
+    <a href="index.html" class="terug"><i class="fas fa-arrow-left"></i> Terug naar het menu</a>
+</div>
+<script>
+    const vragen = [
+        {
+            vraag: "Wat is de hoofdstad van Nederland?",
+            opties: ["Brussel","Rotterdam","Amsterdam","Utrecht"],
+            antwoord: 2
+        },
+        {
+            vraag: "Welke planeet staat het dichtst bij de zon?",
+            opties: ["Venus","Aarde","Mars","Mercurius"],
+            antwoord: 3
+        },
+        {
+            vraag: "Hoeveel dagen heeft een schrikkeljaar?",
+            opties: ["365","366","364","360"],
+            antwoord: 1
+        }
+    ];
+    let idx = 0, goed = 0;
+    function showVraag() {
+        if (idx >= vragen.length) {
+            document.getElementById('quiz').innerHTML = '';
+            document.getElementById('bericht').textContent = `🎉 Je score: ${goed} van de ${vragen.length}!`;
+            document.getElementById('opnieuwBtn').style.display = '';
+            return;
+        }
+        const v = vragen[idx];
+        let html = `<div class="vraag">${v.vraag}</div>`;
+        v.opties.forEach((opt,i)=>{
+            html += `<button class="quiz-btn" onclick="checkAntwoord(${i})">${opt}</button>`;
+        });
+        document.getElementById('quiz').innerHTML = html;
+        document.getElementById('bericht').textContent = '';
+    }
+    function checkAntwoord(i) {
+        if (i === vragen[idx].antwoord) {
+            goed++;
+            document.getElementById('bericht').textContent = 'Goed!';
+        } else {
+            document.getElementById('bericht').textContent = 'Helaas, fout!';
+        }
+        idx++;
+        setTimeout(showVraag, 950);
+    }
+    function resetQuiz() {
+        idx = 0; goed = 0;
+        document.getElementById('opnieuwBtn').style.display = 'none';
+        showVraag();
+    }
+    showVraag();
+</script>
+</body>
+</html>
