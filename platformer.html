@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platformer Mini Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%); font-family: 'Segoe UI', Arial, sans-serif; margin: 0;}
+        .wrapper { max-width: 430px; margin: 42px auto; background: rgba(255,255,255,0.97); border-radius: 22px; box-shadow: 0 6px 32px rgba(40,80,120,0.11); padding: 42px 28px 34px 28px; text-align: center; }
+        .game-icon { font-size: 2.7rem; color: #309be6; margin-bottom: 10px; }
+        h1 { font-size: 2.2rem; color: #2567b3; margin-bottom: 10px; }
+        .uitleg { color: #467; font-size: 1.13rem; margin-bottom: 22px; }
+        canvas { background: #e3effc; border:2px solid #b5d8ff; border-radius:10px; display:block; margin: 16px auto 0 auto;}
+        #bericht { min-height: 24px; margin-top: 13px;}
+        .terug { display: block; margin: 38px auto 0 auto; text-decoration: none; color: #247; font-size: 1.09rem; }
+        .terug:hover { color: #309be6; }
+        .info {font-size: .97rem; margin-top:7px; color: #799;}
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="game-icon
+          <div class="game-icon"><i class="fas fa-running"></i></div>
+    <h1>Platformer Mini Game</h1>
+    <div class="uitleg">Beweeg met <b>links/rechts</b> (← →).<br>Ontwijk de vallende blokjes zo lang mogelijk!</div>
+    <canvas id="game" width="320" height="380" tabindex="0"></canvas>
+    <div id="bericht"></div>
+    <button onclick="resetGame()" id="opnieuwBtn" style="display:none;">Opnieuw spelen</button>
+    <div class="info">Tip: Klik in het canvas of druk op een pijl-toets om te beginnen!</div>
+    <a href="index.html" class="terug"><i class="fas fa-arrow-left"></i> Terug naar het menu</a>
+</div>
+<script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    let speler, blokjes, alive, score, anim, snelheid;
+
+    function startGame() {
+        speler = { x: 140, y: 330, w: 40, h: 30 };
+        blokjes = [];
+        alive = true;
+        score = 0;
+        snelheid = 2.3;
+        document.getElementById('bericht').textContent = '';
+        document.getElementById('opnieuwBtn').style.display = 'none';
+        loop();
+    }
+
+    function resetGame() {
+        cancelAnimationFrame(anim);
+        startGame();
+    }
+
+    function maakBlokje() {
+        const w = 36 + Math.random() * 28;
+        blokjes.push({ x: Math.random() * (320 - w), y: -20, w, h: 18, v: snelheid + Math.random() * 1.3 });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, 320, 380);
+        // speler
+        ctx.fillStyle = "#2567b3";
+        ctx.fillRect(speler.x, speler.y, speler.w, speler.h);
+        // blokjes
+        ctx.fillStyle = "#ea3535";
+        blokjes.forEach(b => ctx.fillRect(b.x, b.y, b.w, b.h));
+        // score
+        ctx.fillStyle = "#299be6";
+        ctx.font = "16px Segoe UI";
+        ctx.fillText(`Score: ${score}`, 8, 22);
+    }
+
+    function update() {
+        // Blokjes laten vallen
+        blokjes.forEach(b => b.y += b.v);
+        // Nieuwe blokjes maken
+        if (Math.random() < 0.045 + snelheid * 0.006) maakBlokje();
+        // Verwijder blokjes onder het scherm en verhoog score
+        blokjes = blokjes.filter(b => {
+            if (b.y > 380) { score++; snelheid += 0.04; return false; }
+            return true;
+        });
+        // Check botsing
+        for (let b of blokjes) {
+            if (
+                speler.x < b.x + b.w &&
+                speler.x + speler.w > b.x &&
+                speler.y < b.y + b.h &&
+                speler.y + speler.h > b.y
+            ) {
+                alive = false;
+            }
+        }
+    }
+
+    function loop() {
+        if (!alive) {
+            ctx.globalAlpha = 0.75;
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, 320, 380);
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "#e35050";
+            ctx.font = "20px Segoe UI";
+            ctx.fillText(`Game Over!`, 95, 160);
+            ctx.font = "17px Segoe UI";
+            ctx.fillText(`Score: ${score}`, 120, 190);
+            document.getElementById('bericht').textContent = `Game over! Je score: ${score}`;
+            document.getElementById('opnieuwBtn').style.display = '';
+            return;
+        }
+        update();
+        draw();
+        anim = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (!alive) return;
+        if (e.key === 'ArrowLeft' && speler.x > 0) speler.x -= 24;
+        if (e.key === 'ArrowRight' && speler.x < 320 - speler.w) speler.x += 24;
+    });
+
+    canvas.addEventListener('click', function() { if (!alive) resetGame(); canvas.focus(); });
+    canvas.addEventListener('focus', function() { if (!alive) resetGame(); });
+    // Start direct bij laden
+    startGame();
+</script>
+</body>
+</html>
