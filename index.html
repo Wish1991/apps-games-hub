@@ -6,94 +6,20 @@
     <title>Mini Games Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .wrapper {
-            max-width: 700px;
-            margin: 48px auto;
-            background: rgba(255,255,255,0.97);
-            border-radius: 22px;
-            box-shadow: 0 6px 40px rgba(40,80,120,0.10);
-            padding: 42px 28px 34px 28px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.4rem;
-            color: #2567b3;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-        .uitleg {
-            color: #467;
-            font-size: 1.18rem;
-            margin-bottom: 36px;
-            margin-top: 0;
-        }
-        .games-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            justify-content: center;
-        }
-        .game-card {
-            background: linear-gradient(110deg,#e8f0fa 60%,#f7fafd 100%);
-            border-radius: 18px;
-            box-shadow: 0 3px 12px rgba(60,110,170,0.07);
-            padding: 32px 28px 22px 28px;
-            width: 235px;
-            text-align: center;
-            transition: transform .18s, box-shadow .18s;
-            position: relative;
-        }
-        .game-card:hover {
-            transform: scale(1.045);
-            box-shadow: 0 6px 26px rgba(60,110,170,0.14);
-        }
-        .game-icon {
-            font-size: 2.7rem;
-            color: #309be6;
-            margin-bottom: 12px;
-        }
-        .game-title {
-            font-size: 1.18rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #2567b3;
-        }
-        .game-desc {
-            font-size: 1.04rem;
-            color: #456;
-            min-height: 52px;
-            margin-bottom: 18px;
-        }
-        .game-link {
-            display: inline-block;
-            background: #2567b3;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            padding: 9px 18px;
-            border-radius: 7px;
-            transition: background .15s;
-            font-weight: 500;
-        }
-        .game-link:hover {
-            background: #319be6;
-        }
-        .footer {
-            margin-top: 34px;
-            color: #789;
-            font-size: .98rem;
-            opacity: .87;
-        }
-        @media (max-width: 780px) {
-            .games-container { flex-direction: column; gap: 22px; }
-            .wrapper { padding: 26px 6vw; }
-        }
+        body { background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;}
+        .wrapper { max-width: 850px; margin: 48px auto; background: rgba(255,255,255,0.97); border-radius: 22px; box-shadow: 0 6px 40px rgba(40,80,120,0.10); padding: 42px 28px 34px 28px; text-align: center;}
+        h1 { font-size: 2.4rem; color: #2567b3; margin-bottom: 12px; letter-spacing: 1px;}
+        .uitleg { color: #467; font-size: 1.18rem; margin-bottom: 36px; margin-top: 0;}
+        .games-container { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;}
+        .game-card { background: linear-gradient(110deg,#e8f0fa 60%,#f7fafd 100%); border-radius: 18px; box-shadow: 0 3px 12px rgba(60,110,170,0.07); padding: 32px 28px 22px 28px; width: 235px; text-align: center; transition: transform .18s, box-shadow .18s; position: relative;}
+        .game-card:hover { transform: scale(1.045); box-shadow: 0 6px 26px rgba(60,110,170,0.14);}
+        .game-icon { font-size: 2.4rem; color: #309be6; margin-bottom: 12px;}
+        .game-title { font-size: 1.18rem; font-weight: bold; margin-bottom: 8px; color: #2567b3;}
+        .game-desc { font-size: 1.04rem; color: #456; min-height: 52px; margin-bottom: 18px;}
+        .game-link { display: inline-block; background: #2567b3; color: #fff; text-decoration: none; font-size: 1rem; padding: 9px 18px; border-radius: 7px; transition: background .15s; font-weight: 500;}
+        .game-link:hover { background: #319be6;}
+        .footer { margin-top: 34px; color: #789; font-size: .98rem; opacity: .87;}
+        @media (max-width: 980px) {.games-container {flex-direction: column; gap: 22px;} .wrapper {padding: 26px 6vw;}}
     </style>
 </head>
 <body>
@@ -102,30 +28,72 @@
         <p class="uitleg">
             Welkom op de Mini Games Hub!<br>
             Speel korte, leuke spelletjes direct in je browser.<br>
-            <span style="color:#299be6;font-weight:bold;">Geen installatie nodig, gewoon klikken & spelen!</span>
+            <span style="color:#299be6;font-weight:bold;">Klik op een spel om te beginnen!</span>
         </p>
         <div class="games-container">
             <div class="game-card">
                 <div class="game-icon"><i class="fas fa-question-circle"></i></div>
                 <div class="game-title">Raad het Getal</div>
-                <div class="game-desc">
-                    Kun jij het geheime getal tussen 1 en 100 raden?<br>
-                    Je krijgt na elke poging een hint of je te hoog of te laag zit.
-                </div>
+                <div class="game-desc">Raad het geheime getal tussen 1 en 100. Krijg hints na elke gok.</div>
                 <a class="game-link" href="raad-het-getal.html">Spelen</a>
             </div>
             <div class="game-card">
                 <div class="game-icon"><i class="fas fa-hand-rock"></i> <i class="fas fa-hand-paper"></i> <i class="fas fa-hand-scissors"></i></div>
                 <div class="game-title">Steen Papier Schaar</div>
-                <div class="game-desc">
-                    Neem het op tegen de computer in dit klassieke spel.<br>
-                    Kies slim: steen, papier of schaar!
-                </div>
+                <div class="game-desc">Versla de computer. Kies steen, papier of schaar!</div>
                 <a class="game-link" href="steen-papier-schaar.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-brain"></i></div>
+                <div class="game-title">Memory</div>
+                <div class="game-desc">Draai kaarten om en vind alle paren. Train je geheugen!</div>
+                <a class="game-link" href="memory.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-times-circle"></i> <i class="fas fa-circle"></i></div>
+                <div class="game-title">Boter-Kaas-en-Eieren</div>
+                <div class="game-desc">Tic-Tac-Toe voor 2 spelers. Krijg drie op een rij!</div>
+                <a class="game-link" href="tictactoe.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-mouse-pointer"></i></div>
+                <div class="game-title">Clicker Game</div>
+                <div class="game-desc">Hoe vaak kun jij klikken in 10 seconden?</div>
+                <a class="game-link" href="clicker.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-palette"></i></div>
+                <div class="game-title">Kleurenspel</div>
+                <div class="game-desc">Raad de juiste kleur. Snel en kleurrijk!</div>
+                <a class="game-link" href="kleurenspel.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-apple-alt"></i></div>
+                <div class="game-title">Snake</div>
+                <div class="game-desc">Stuur de slang, eet appels en ontwijk jezelf!</div>
+                <a class="game-link" href="snake.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-question"></i></div>
+                <div class="game-title">Quiz</div>
+                <div class="game-desc">Test je kennis met een korte quiz!</div>
+                <a class="game-link" href="quiz.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-dice"></i></div>
+                <div class="game-title">Dobbelsteen</div>
+                <div class="game-desc">Rol een dobbelsteen en kijk wat je krijgt.</div>
+                <a class="game-link" href="dobbelsteen.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-running"></i></div>
+                <div class="game-title">Platformer</div>
+                <div class="game-desc">Ontwijk vallende blokjes. Hoe lang hou jij het vol?</div>
+                <a class="game-link" href="platformer.html">Spelen</a>
             </div>
         </div>
         <div class="footer">
-            &copy; 2025 Mini Games Hub | Gemaakt voor plezier door Wish & ChatGPT
+            &copy; 2025 Mini Games Hub | Gemaakt door Wish & ChatGPT
         </div>
     </div>
 </body>
