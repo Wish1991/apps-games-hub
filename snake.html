@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%); font-family: 'Segoe UI', Arial, sans-serif; margin: 0;}
+        .wrapper { max-width: 430px; margin: 42px auto; background: rgba(255,255,255,0.97); border-radius: 22px; box-shadow: 0 6px 32px rgba(40,80,120,0.11); padding: 42px 28px 34px 28px; text-align: center; }
+        .game-icon { font-size: 2.7rem; color: #309be6; margin-bottom: 10px; }
+        h1 { font-size: 2.2rem; color: #2567b3; margin-bottom: 10px; }
+        .uitleg { color: #467; font-size: 1.13rem; margin-bottom: 22px; }
+        #snakeCanvas { border: 2px solid #b5d8ff; background: #e3effc; border-radius: 9px; margin-top: 9px;}
+        #bericht { min-height: 24px; margin-top: 13px;}
+        .terug { display: block; margin: 38px auto 0 auto; text-decoration: none; color: #247; font-size: 1.09rem; }
+        .terug:hover { color: #309be6; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="game-icon"><i class="fas fa-apple-alt"></i></div>
+    <h1>Snake</h1>
+    <div class="uitleg">Stuur de slang met de pijltjestoetsen.<br>Hoeveel appels kun jij pakken?</div>
+    <canvas id="snakeCanvas" width="300" height="300" tabindex="0"></canvas>
+    <div id="bericht"></div>
+    <button onclick="startGame()" id="opnieuwBtn" style="display:none;">Opnieuw spelen</button>
+    <a href="index.html" class="terug"><i class="fas fa-arrow-left"></i> Terug naar het menu</a>
+</div>
+<script>
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    let snake, apple, dir, playing, interval, score;
+    function startGame() {
+        snake = [{x:7,y:7}];
+        dir = {x:1,y:0};
+        apple = {x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)};
+        score = 0;
+        playing = true;
+        document.getElementById('bericht').textContent = '';
+        document.getElementById('opnieuwBtn').style.display = 'none';
+        clearInterval(interval);
+        interval = setInterval(loop, 140);
+        canvas.focus();
+    }
+    function loop() {
+        const head = {x:snake[0].x+dir.x, y:snake[0].y+dir.y};
+        if (head.x<0||head.y<0||head.x>14||head.y>14||snake.some(s=>s.x===head.x&&s.y===head.y)) {
+            playing = false;
+            clearInterval(interval);
+            document.getElementById('bericht').textContent = `Game over! Score: ${score}`;
+            document.getElementById('opnieuwBtn').style.display = '';
+            return;
+        }
+        snake.unshift(head);
+        if (head.x===apple.x&&head.y===apple.y) {
+            score++;
+            apple = {x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)};
+        } else {
+            snake.pop();
+        }
+        draw();
+    }
+    function draw() {
+        ctx.clearRect(0,0,300,300);
+        ctx.fillStyle = '#2567b3';
+        snake.forEach(s=>ctx.fillRect(s.x*20,s.y*20,20,20));
+        ctx.fillStyle = '#ea3535';
+        ctx.beginPath();
+        ctx.arc(apple.x*20+10, apple.y*20+10, 10, 0, Math.PI*2); ctx.fill();
+    }
+    window.addEventListener('keydown', e=>{
+        if (!playing) return;
+        if (e.key==='ArrowUp' && dir.y!==1) dir={x:0,y:-1};
+        if (e.key==='ArrowDown' && dir.y!==-1) dir={x:0,y:1};
+        if (e.key==='ArrowLeft' && dir.x!==1) dir={x:-1,y:0};
+        if (e.key==='ArrowRight' && dir.x!==-1) dir={x:1,y:0};
+    });
+    startGame();
+</script>
+</body>
+</html>
