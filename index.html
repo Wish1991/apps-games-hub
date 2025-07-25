@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang=\"nl\">
+<html lang="nl">
 <head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raad het getal!</title>
     <style>
         body {
@@ -11,20 +11,17 @@
             padding: 20px;
             text-align: center;
         }
-        
-        input[type=\"number\"] {
+        input[type="number"] {
             padding: 10px;
             font-size: 16px;
             width: 200px;
             margin: 10px;
         }
-        
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
         }
-        
         #bericht {
             margin-top: 20px;
             font-size: 18px;
@@ -35,25 +32,38 @@
 <body>
     <h1>Raad het Getal!</h1>
     <p>Ik denk aan een getal tussen 1 en 100. Kan jij het raden?</p>
-    <input type=\"number\" id=\"gok\" placeholder="Jouw gok">
+    <input type="number" id="gok" placeholder="Jouw gok" min="1" max="100">
     <br>
-    <button onclick=\"checkGok()\">Controleer!</button>
-
-    <div id=\"bericht\"></div>
+    <button id="controleerBtn" onclick="checkGok()">Controleer!</button>
+    <button id="opnieuwBtn" onclick="resetSpel()" style="display:none;">Opnieuw spelen</button>
+    <div id="bericht"></div>
 
     <script>
-        const geheimGetal = Math.floor(Math.random() * 100) + 1;
+        let geheimGetal = Math.floor(Math.random() * 100) + 1;
         let aantalPogingen = 0;
+        let spelActief = true;
 
         function checkGok() {
-            const gok = Number(document.getElementById('gok').value);
+            if (!spelActief) return;
+            const gokInput = document.getElementById('gok');
+            const gok = Number(gokInput.value);
             const bericht = document.getElementById('bericht');
-
             aantalPogingen++;
+
+            // Check op lege invoer of ongeldige waarde
+            if (!gokInput.value || gok < 1 || gok > 100) {
+                bericht.textContent = 'Vul een geldig getal in tussen 1 en 100!';
+                bericht.style.color = 'orange';
+                return;
+            }
 
             if (gok === geheimGetal) {
                 bericht.textContent = `Gefeliciteerd! Je hebt het getal geraden in ${aantalPogingen} poging(en)!`;
                 bericht.style.color = 'green';
+                spelActief = false;
+                document.getElementById('controleerBtn').style.display = 'none';
+                document.getElementById('opnieuwBtn').style.display = '';
+                gokInput.disabled = true;
             } else if (gok > geheimGetal) {
                 bericht.textContent = 'Te hoog! Probeer opnieuw.';
                 bericht.style.color = 'red';
@@ -61,6 +71,27 @@
                 bericht.textContent = 'Te laag! Probeer opnieuw.';
                 bericht.style.color = 'red';
             }
+            gokInput.value = '';
+            gokInput.focus();
+        }
+
+        // Met enter raden
+        document.getElementById('gok').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                checkGok();
+            }
+        });
+
+        function resetSpel() {
+            geheimGetal = Math.floor(Math.random() * 100) + 1;
+            aantalPogingen = 0;
+            spelActief = true;
+            document.getElementById('gok').disabled = false;
+            document.getElementById('gok').value = '';
+            document.getElementById('gok').focus();
+            document.getElementById('bericht').textContent = '';
+            document.getElementById('controleerBtn').style.display = '';
+            document.getElementById('opnieuwBtn').style.display = 'none';
         }
     </script>
 </body>
