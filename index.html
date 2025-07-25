@@ -4,49 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Games Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
-            background: #f0f4fa;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            max-width: 700px;
+            margin: 48px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 22px;
+            box-shadow: 0 6px 40px rgba(40,80,120,0.10);
+            padding: 42px 28px 34px 28px;
             text-align: center;
         }
         h1 {
-            margin-top: 40px;
-            font-size: 2.5rem;
+            font-size: 2.4rem;
+            color: #2567b3;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .uitleg {
+            color: #467;
+            font-size: 1.18rem;
+            margin-bottom: 36px;
+            margin-top: 0;
         }
         .games-container {
-            margin-top: 60px;
             display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
             justify-content: center;
-            gap: 30px;
         }
         .game-card {
-            background: #fff;
-            padding: 35px 45px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
+            background: linear-gradient(110deg,#e8f0fa 60%,#f7fafd 100%);
+            border-radius: 18px;
+            box-shadow: 0 3px 12px rgba(60,110,170,0.07);
+            padding: 32px 28px 22px 28px;
+            width: 235px;
+            text-align: center;
+            transition: transform .18s, box-shadow .18s;
+            position: relative;
         }
         .game-card:hover {
-            transform: scale(1.07);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            transform: scale(1.045);
+            box-shadow: 0 6px 26px rgba(60,110,170,0.14);
+        }
+        .game-icon {
+            font-size: 2.7rem;
+            color: #309be6;
+            margin-bottom: 12px;
+        }
+        .game-title {
+            font-size: 1.18rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2567b3;
+        }
+        .game-desc {
+            font-size: 1.04rem;
+            color: #456;
+            min-height: 52px;
+            margin-bottom: 18px;
         }
         .game-link {
+            display: inline-block;
+            background: #2567b3;
+            color: #fff;
             text-decoration: none;
-            color: #222;
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1rem;
+            padding: 9px 18px;
+            border-radius: 7px;
+            transition: background .15s;
+            font-weight: 500;
+        }
+        .game-link:hover {
+            background: #319be6;
+        }
+        .footer {
+            margin-top: 34px;
+            color: #789;
+            font-size: .98rem;
+            opacity: .87;
+        }
+        @media (max-width: 780px) {
+            .games-container { flex-direction: column; gap: 22px; }
+            .wrapper { padding: 26px 6vw; }
         }
     </style>
 </head>
 <body>
-    <h1>Kies een spel!</h1>
-    <div class="games-container">
-        <div class="game-card">
-            <a class="game-link" href="raad-het-getal.html">Raad het Getal</a>
+    <div class="wrapper">
+        <h1>🎮 Mini Games Hub</h1>
+        <p class="uitleg">
+            Welkom op de Mini Games Hub!<br>
+            Speel korte, leuke spelletjes direct in je browser.<br>
+            <span style="color:#299be6;font-weight:bold;">Geen installatie nodig, gewoon klikken & spelen!</span>
+        </p>
+        <div class="games-container">
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-question-circle"></i></div>
+                <div class="game-title">Raad het Getal</div>
+                <div class="game-desc">
+                    Kun jij het geheime getal tussen 1 en 100 raden?<br>
+                    Je krijgt na elke poging een hint of je te hoog of te laag zit.
+                </div>
+                <a class="game-link" href="raad-het-getal.html">Spelen</a>
+            </div>
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-hand-rock"></i> <i class="fas fa-hand-paper"></i> <i class="fas fa-hand-scissors"></i></div>
+                <div class="game-title">Steen Papier Schaar</div>
+                <div class="game-desc">
+                    Neem het op tegen de computer in dit klassieke spel.<br>
+                    Kies slim: steen, papier of schaar!
+                </div>
+                <a class="game-link" href="steen-papier-schaar.html">Spelen</a>
+            </div>
         </div>
-        <div class="game-card">
-            <a class="game-link" href="steen-papier-schaar.html">Steen Papier Schaar</a>
+        <div class="footer">
+            &copy; 2025 Mini Games Hub | Gemaakt voor plezier door Wish & ChatGPT
         </div>
     </div>
 </body>
