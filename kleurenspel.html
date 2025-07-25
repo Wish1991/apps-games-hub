@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kleuren Raadspel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: linear-gradient(120deg, #b5d8ff 0%, #f8fcff 100%); font-family: 'Segoe UI', Arial, sans-serif; margin: 0;}
+        .wrapper { max-width: 430px; margin: 42px auto; background: rgba(255,255,255,0.97); border-radius: 22px; box-shadow: 0 6px 32px rgba(40,80,120,0.11); padding: 42px 28px 34px 28px; text-align: center; }
+        .game-icon { font-size: 2.7rem; color: #309be6; margin-bottom: 10px; }
+        h1 { font-size: 2.2rem; color: #2567b3; margin-bottom: 10px; }
+        .uitleg { color: #467; font-size: 1.13rem; margin-bottom: 26px; }
+        .color-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 18px;}
+        .color-box { width: 56px; height: 56px; border-radius: 9px; cursor: pointer; border: 2.5px solid #f7fafd; transition: border .15s;}
+        .color-box:hover { border-color: #309be6;}
+        #vraag { font-size: 1.13rem; font-weight: bold; margin-bottom: 10px;}
+        #bericht { margin-bottom: 12px; min-height: 18px; font-weight: bold;}
+        .terug { display: block; margin: 38px auto 0 auto; text-decoration: none; color: #247; font-size: 1.09rem; }
+        .terug:hover { color: #309be6; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="game-icon"><i class="fas fa-palette"></i></div>
+    <h1>Kleurenspel</h1>
+    <div class="uitleg">Klik op het vakje dat overeenkomt met de kleur die gevraagd wordt!</div>
+    <div id="vraag"></div>
+    <div class="color-row" id="kleuren"></div>
+    <div id="bericht"></div>
+    <button onclick="nieuweRonde()" id="opnieuwBtn" style="display:none;">Nog een keer!</button>
+    <a href="index.html" class="terug"><i class="fas fa-arrow-left"></i> Terug naar het menu</a>
+</div>
+<script>
+    const kleuren = [
+        {naam:"rood", code:"#ea3535"},
+        {naam:"blauw", code:"#299be6"},
+        {naam:"geel", code:"#f9e847"},
+        {naam:"groen", code:"#39c971"},
+        {naam:"paars", code:"#a463e9"},
+        {naam:"oranje", code:"#ff9500"},
+    ];
+    let juist = null, opties = [];
+    function nieuweRonde() {
+        document.getElementById('bericht').textContent = '';
+        document.getElementById('opnieuwBtn').style.display = 'none';
+        opties = kleuren.sort(()=>.5-Math.random()).slice(0,4);
+        juist = opties[Math.floor(Math.random()*4)];
+        document.getElementById('vraag').textContent = `Welke is ${juist.naam}?`;
+        const holder = document.getElementById('kleuren');
+        holder.innerHTML = '';
+        opties.forEach((k,i)=>{
+            const b = document.createElement('div');
+            b.className = 'color-box';
+            b.style.background = k.code;
+            b.onclick = () => kies(k,i);
+            holder.appendChild(b);
+        });
+    }
+    function kies(k) {
+        if (k===juist) {
+            document.getElementById('bericht').textContent = '🎉 Goed gedaan!';
+            document.getElementById('opnieuwBtn').style.display = '';
+        } else {
+            document.getElementById('bericht').textContent = 'Helaas, probeer het nog eens!';
+        }
+    }
+    nieuweRonde();
+</script>
+</body>
+</html>
