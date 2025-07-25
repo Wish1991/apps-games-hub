@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games Hub</title>
+    <style>
+        body {
+            background: #f0f4fa;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 40px;
+            font-size: 2.5rem;
+        }
+        .games-container {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .game-card {
+            background: #fff;
+            padding: 35px 45px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        .game-card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .game-link {
+            text-decoration: none;
+            color: #222;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kies een spel!</h1>
+    <div class="games-container">
+        <div class="game-card">
+            <a class="game-link" href="raad-het-getal.html">Raad het Getal</a>
+        </div>
+        <div class="game-card">
+            <a class="game-link" href="steen-papier-schaar.html">Steen Papier Schaar</a>
+        </div>
+    </div>
+</body>
+</html>
